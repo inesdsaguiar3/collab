@@ -70,18 +70,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Glassmorphism — light, airy, lets the colorful background shine through */
+/* Glassmorphism */
 .glass {
   background: rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.22);
 }
-
 .glass-hover {
   transition: all 0.3s ease;
 }
-
 .glass-hover:hover {
   background: rgba(255, 255, 255, 0.22);
   border-color: rgba(255, 255, 255, 0.36);
@@ -89,7 +87,7 @@ body {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.10);
 }
 
-/* Gradient text — warm orange only */
+/* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg, #F5A57A 0%, #EB8064 45%, #D96B50 100%);
   -webkit-background-clip: text;
@@ -101,4 +99,12 @@ body {
 .line-glow {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+/* Retreat overview two-column grid — stack on mobile */
+@media (max-width: 640px) {
+  .retreat-overview-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px 0 !important;
+  }
 }

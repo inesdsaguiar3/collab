@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, MapPin, Instagram, Twitter, Linkedin } from "lucide-react";
+import { Send } from "lucide-react";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -25,41 +25,31 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid md:grid-cols-2 gap-8"
+          className="grid md:grid-cols-2 gap-8 items-start"
         >
           {/* Info */}
-          <div className="glass rounded-3xl p-10 space-y-10 border border-white/10">
+          <div className="glass rounded-3xl p-8 md:p-9 border border-white/10 self-start">
             <div className="space-y-6">
-              <h2 className="text-2xl font-black text-white">We'd love to hear from you.</h2>
-              <p className="text-white/50 leading-relaxed">
-                Whether you're curious about a retreat, want to co-create with us, or just want to say hello — reach out. We respond to every message.
-              </p>
-            </div>
-            <div className="space-y-5">
-              <a href="mailto:hello@co-llab.community" className="flex items-center gap-4 text-white/60 hover:text-white transition-colors group">
-                <div className="w-10 h-10 rounded-xl glass flex items-center justify-center border border-white/10 group-hover:border-[#EB8064]/40 transition-colors">
-                  <Mail className="w-4 h-4 text-[#EB8064]" />
-                </div>
-                hello@co-llab.community
-              </a>
-              <div className="flex items-start gap-4 text-white/60">
-                <div className="w-10 h-10 rounded-xl glass flex items-center justify-center border border-white/10 flex-shrink-0">
-                  <MapPin className="w-4 h-4 text-[#D16678]" />
-                </div>
-                <div>
-                  <div className="text-white font-medium">Global HQ</div>
-                  <div className="text-sm">Lisbon, Portugal</div>
-                </div>
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+              <div className="space-y-5">
+                <h2 className="text-2xl font-black text-white">We'd love to hear from you.</h2>
+                <p className="text-white/50 leading-relaxed">
+                  Whether you're curious about a retreat, want to co-create with us, or just want to say hello — reach out.
+                </p>
               </div>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-widest text-white/30 mb-4">Follow us</p>
-              <div className="flex gap-3">
-                {[Instagram, Twitter, Linkedin].map((Icon, i) => (
-                  <a key={i} href="#" className="w-10 h-10 glass rounded-full flex items-center justify-center text-white/40 hover:text-[#EB8064] hover:border-[#EB8064]/30 border border-white/10 transition-all duration-200">
-                    <Icon className="w-4 h-4" />
-                  </a>
-                ))}
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+              <div className="flex items-center gap-4">
+                <p className="text-white/75 leading-relaxed">
+                  With love,<br />
+                  <span className="text-white font-medium">Inês</span>
+                </p>
+                <div className="w-14 h-14 rounded-full overflow-hidden border border-white/20 shadow-lg shadow-black/20 flex-shrink-0">
+                  <img
+                    src="/images/retreats/profile.JPG"
+                    alt="Inês"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>

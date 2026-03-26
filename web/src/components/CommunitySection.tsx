@@ -23,8 +23,11 @@ export function CommunitySection() {
             You were never meant<br />
             <span className="gradient-text">to do it alone.</span>
           </h2>
-          <p className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+          <p className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed mb-4">
             Co-llab is a living, breathing community of creators, nomads, healers, and builders. We gather in sacred spaces around the world to remind each other what's possible.
+          </p>
+          <p className="text-white/60 text-sm max-w-xl mx-auto leading-relaxed mb-10">
+            At the heart of it, Inês Rosa holds space for those who feel deeply — inviting sensitivity, aliveness, and the kind of togetherness that makes change feel possible.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

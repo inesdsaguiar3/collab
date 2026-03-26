@@ -7,27 +7,35 @@ import { ArrowRight, Wifi, Users, Leaf } from "lucide-react";
 const spaces = [
   {
     id: 1,
-    city: "Lisbon",
+    city: "Óbidos",
     country: "Portugal",
-    tagline: "Sun-drenched nomad hub",
-    image: "https://images.unsplash.com/photo-1596701062351-8c2c14d1fdd0?w=800&q=80",
-    price: "€1,200/mo",
+    tagline: "Medieval magic & slow living",
+    image: "https://images.unsplash.com/photo-1696535201883-c1d76a6b22cc?w=800&q=80",
+    price: "€950/mo",
   },
   {
     id: 2,
-    city: "Ubud",
-    country: "Bali",
-    tagline: "Rice field sanctuary",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
-    price: "$900/mo",
+    city: "Ericeira",
+    country: "Portugal",
+    tagline: "Surf, soul & Atlantic air",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+    price: "€1,100/mo",
   },
   {
     id: 3,
-    city: "Tulum",
-    country: "Mexico",
-    tagline: "Jungle & ocean paradise",
-    image: "https://images.unsplash.com/photo-1543489816-c87b0f5f7f56?w=800&q=80",
-    price: "$1,500/mo",
+    city: "Koh Phangan",
+    country: "Thailand",
+    tagline: "Jungle, yoga & island energy",
+    image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
+    price: "$750/mo",
+  },
+  {
+    id: 4,
+    city: "Amsterdam",
+    country: "NL",
+    tagline: "Canals, bikes & creative flow",
+    image: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800&q=80",
+    price: "€1,600/mo",
   },
 ];
 
@@ -83,15 +91,15 @@ export function CoLivingSection() {
           </motion.div>
 
           {/* Right: cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {spaces.map((space, idx) => (
               <motion.div
                 key={space.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.12 }}
-                className={`glass glass-hover rounded-2xl overflow-hidden cursor-pointer ${idx === 0 ? "sm:col-span-2 lg:col-span-1 xl:col-span-2" : ""}`}
+                transition={{ delay: idx * 0.1 }}
+                className="glass glass-hover rounded-2xl overflow-hidden cursor-pointer"
               >
                 <div className="relative h-40 overflow-hidden">
                   <img src={space.image} alt={space.city} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />

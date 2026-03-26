@@ -6,36 +6,60 @@ import { Heart, Lightbulb, Globe, Zap } from "lucide-react";
 
 const values = [
   {
-    icon: Heart,
-    title: "Radical Inclusion",
-    desc: "Every soul is welcome here. We hold space without judgment, building environments where authenticity thrives.",
+    icon: Zap,
+    title: "Co-creation",
+    desc: "Building together with shared intention and collective leadership.",
     color: "#EB8064",
   },
   {
-    icon: Globe,
-    title: "Global Community",
-    desc: "Boundaries are illusions. Our network spans continents, creating belonging wherever you land.",
+    icon: Lightbulb,
+    title: "Expansion",
+    desc: "Growing in awareness, possibility, and personal capacity.",
     color: "#D16678",
   },
   {
-    icon: Zap,
-    title: "Co-Creation",
-    desc: "We believe the best ideas emerge when diverse minds share the same table. Collaboration is our superpower.",
+    icon: Globe,
+    title: "Community",
+    desc: "Choosing belonging, care, and togetherness over isolation.",
     color: "#D96B50",
   },
   {
-    icon: Lightbulb,
-    title: "Conscious Living",
-    desc: "We make choices that honor ourselves, our communities, and the planet we call home.",
+    icon: Heart,
+    title: "Social awareness",
+    desc: "Staying awake to our impact and responsible to the wider world.",
     color: "#C85A3A",
+  },
+  {
+    icon: Heart,
+    title: "Connection",
+    desc: "Reconnecting to self, to others, and to what matters most.",
+    color: "#AE5F8F",
+  },
+  {
+    icon: Lightbulb,
+    title: "Expression",
+    desc: "Honoring truth through creativity, movement, voice, and presence.",
+    color: "#7F5AA1",
+  },
+  {
+    icon: Zap,
+    title: "Communication",
+    desc: "Speaking with clarity, listening deeply, and meeting with openness.",
+    color: "#B06A8F",
+  },
+  {
+    icon: Globe,
+    title: "Authenticity",
+    desc: "Showing up honestly and living from what is real.",
+    color: "#9B7CC0",
   },
 ];
 
 const team = [
+  { name: "Inês Rosa", role: "Breathwork & Community", image: "/images/retreats/profile.JPG" },
   { name: "Elena Sol", role: "Founder & Visionary", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" },
   { name: "Marcus Chen", role: "Head of Experience", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80" },
   { name: "Amara Osei", role: "Community Lead", image: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&q=80" },
-  { name: "Sofia Lenz", role: "Retreat Curator", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" },
 ];
 
 const fadeUp = {
@@ -90,7 +114,7 @@ export default function AboutPage() {
             From humble retreat gatherings to a global movement, Co-llab has grown into a network of spaces and experiences that honor the deep human need for community, creativity, and meaning.
           </p>
           <p>
-            Today we curate retreats on five continents, co-living spaces in the world's most inspiring cities, and a member community that spans borders and backgrounds.
+            Today we curate retreats, co-living spaces in the world's most inspiring cities, and an online member community that spans borders and backgrounds.
           </p>
         </motion.div>
         <motion.div
@@ -100,17 +124,31 @@ export default function AboutPage() {
           className="relative aspect-[4/5] rounded-3xl overflow-hidden"
         >
           <img
-            src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80"
-            alt="Friends at sunset"
+            src="/images/IMG_7927.JPG"
+            alt="Co-llab community moment"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6 glass rounded-2xl p-5 border border-white/10">
-            <p className="text-white font-medium italic text-sm leading-relaxed">
-              "We don't just host retreats. We create the conditions for transformation."
-            </p>
-            <span className="text-[#EB8064] text-xs mt-2 block">— Elena Sol, Founder</span>
+        </motion.div>
+      </section>
+
+      {/* Coming together manifesto */}
+      <section className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="glass rounded-3xl p-10 md:p-14 border border-white/10 text-center"
+        >
+          <p className="text-white text-2xl md:text-3xl font-black mb-8">There’s nothing more powerful than coming together.</p>
+          <div className="space-y-4 text-white/70 text-lg leading-relaxed">
+            <p>Coming together to feel and get in touch with the parts of us that have been hidden.</p>
+            <p>Coming together to celebrate life.</p>
+            <p>Coming together to share the weight of pain.</p>
+            <p>Coming together to empower change. Coming together to create the world we want to live in.</p>
+            <p>No matter where you are, you are not alone.</p>
           </div>
+          <p className="mt-8 text-white text-2xl font-black">Let’s come together.</p>
         </motion.div>
       </section>
 
@@ -142,6 +180,43 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </div>
+      </section>
+
+      {/* Inês feature */}
+      <section className="max-w-5xl mx-auto grid md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.4fr)] gap-10 items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="relative aspect-[3/4] rounded-3xl overflow-hidden"
+        >
+          <img
+            src="/images/retreats/profile.JPG"
+            alt="Inês Rosa"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+          <div className="absolute bottom-5 left-5 right-5 glass rounded-2xl p-4 border border-white/15">
+            <p className="text-xs uppercase tracking-[0.28em] text-white/60 mb-1">Inês Rosa</p>
+            <p className="text-white text-sm font-medium">Breathwork, movement & community</p>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="space-y-5 text-white/70 text-lg leading-relaxed"
+        >
+          <h2 className="text-3xl md:text-4xl font-black text-white">Inês Rosa</h2>
+          <p>
+            Deeply human. I feel things deeply and empower others to do it too. To embrace the gift of sensitivity and
+            choose to go through life through aliveness rather than numbness.
+          </p>
+          <p>
+            It’s not an easy path, that’s why we have no choice but to do it together. If you feel the call, this space
+            is for you.
+          </p>
+        </motion.div>
       </section>
 
       {/* Team */}

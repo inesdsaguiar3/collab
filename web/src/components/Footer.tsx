@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Instagram, Twitter, Linkedin, Youtube, Send } from "lucide-react";
+import { Instagram, Send } from "lucide-react";
 import { useState } from "react";
 
 const footerLinks = [
@@ -26,10 +26,7 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { Icon: Instagram, href: "#", label: "Instagram" },
-  { Icon: Twitter, href: "#", label: "Twitter / X" },
-  { Icon: Linkedin, href: "#", label: "LinkedIn" },
-  { Icon: Youtube, href: "#", label: "YouTube" },
+  { Icon: Instagram, href: "https://www.instagram.com/co_llab__/", label: "Instagram" },
 ];
 
 export function Footer() {
@@ -51,6 +48,8 @@ export function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 glass rounded-full flex items-center justify-center text-white/50 hover:text-[#EB8064] hover:border-[#EB8064]/30 transition-all duration-200"
                 >
                   <Icon className="w-4 h-4" />
