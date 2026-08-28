@@ -24,9 +24,9 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-start justify-center px-8 md:px-16 lg:px-24 overflow-hidden">
-      {/* Spinning rings */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <section className="relative flex min-h-[100dvh] flex-col items-start justify-center overflow-x-hidden px-6 pb-28 pt-2 sm:px-8 sm:pb-32 md:px-16 lg:px-24">
+      {/* Spinning rings — own overflow so hero copy is never vertically clipped */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
         <div className="w-[800px] h-[800px] rounded-full border border-white/[0.06] absolute animate-[spin_40s_linear_infinite]" />
         <div className="w-[600px] h-[600px] rounded-full border border-white/[0.08] absolute animate-[spin_28s_linear_infinite_reverse]" />
         <div className="w-[400px] h-[400px] rounded-full border border-white/[0.06] absolute animate-[spin_18s_linear_infinite]" />
@@ -36,7 +36,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="relative z-10 flex flex-col items-start gap-8 max-w-5xl"
+        className="relative z-10 flex w-full min-w-0 max-w-5xl flex-shrink-0 flex-col items-start gap-6 sm:gap-8"
       >
         {/*
           Flex-baseline layout:
@@ -46,10 +46,11 @@ export function Hero() {
           - flex alignItems:"baseline" therefore aligns both tops exactly
         */}
         <h1
+          className="max-w-full flex-shrink-0"
           style={{
             display: "flex",
             alignItems: "baseline",
-            fontSize: "clamp(3.5rem, 9vw, 7.5rem)",
+            fontSize: "clamp(2.75rem, 12vw, 7.5rem)",
             fontWeight: 900,
             letterSpacing: "-0.05em",
             lineHeight: 1,
@@ -112,9 +113,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.7 }}
-          className="text-lg md:text-xl text-white/75 max-w-lg leading-relaxed font-light"
+          className="max-w-lg flex-shrink-0 text-base leading-relaxed font-light text-white/85 sm:text-lg md:text-xl"
         >
-          Curated retreats, co-living spaces, and a global community of conscious souls.
+          Curated retreats, coliving spaces, and a global community of conscious souls.
           Come as you are. Leave transformed.
         </motion.p>
 
@@ -122,7 +123,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4"
+          className="flex w-full max-w-lg flex-shrink-0 flex-col gap-4 sm:flex-row sm:max-w-none"
         >
           <Link
             href="/retreats"
@@ -131,10 +132,10 @@ export function Hero() {
             Explore Retreats ✦
           </Link>
           <Link
-            href="/co-living"
+            href="/coliving"
             className="px-8 py-4 rounded-full font-semibold text-white border border-white/30 bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-200 text-base"
           >
-            Find Co-Living →
+            Find Coliving →
           </Link>
         </motion.div>
       </motion.div>
@@ -144,7 +145,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-xs tracking-widest uppercase"
+        className="pointer-events-none absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-xs uppercase tracking-widest text-white/50 sm:bottom-10"
       >
         <span>Scroll</span>
         <motion.div

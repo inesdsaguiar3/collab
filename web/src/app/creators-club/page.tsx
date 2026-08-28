@@ -154,15 +154,15 @@ function PracticeFlipCard({
 
 export default function CreatorsClubPage() {
   return (
-    <div className="px-6 py-20 min-h-screen">
+    <div className="px-5 sm:px-6 py-16 sm:py-20 min-h-screen min-w-0 overflow-x-hidden">
 
       {/* 1 ── HERO ──────────────────────────────────────────── */}
-      <section className="max-w-2xl mx-auto pt-10 space-y-8">
+      <section className="max-w-2xl mx-auto pt-6 sm:pt-10 space-y-6 sm:space-y-8">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.7 }}
-          className="text-5xl md:text-6xl font-black tracking-tight text-white leading-[1.08]"
+          className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-[1.08]"
         >
           The Creators&apos; Lab<span className="text-[#EB8064]">.</span><br />
           <span className="gradient-text">A living container.</span>
@@ -297,14 +297,14 @@ export default function CreatorsClubPage() {
       </section>
 
       {/* 7 ── PRACTICAL + EXCHANGE ───────────────────────────── */}
-      <section className="max-w-2xl mx-auto mt-28">
-        <div className="flex items-stretch gap-4 w-fit">
+      <section className="max-w-2xl mx-auto mt-28 w-full min-w-0">
+        <div className="flex flex-col sm:flex-row items-stretch gap-4 w-full">
           {/* card */}
           <motion.div
             {...fadeUp()}
-            className="glass rounded-2xl border border-white/10 px-7 py-6 flex flex-col justify-center gap-2 shrink-0"
+            className="glass rounded-2xl border border-white/10 px-5 py-6 sm:px-7 flex flex-col justify-center gap-2 flex-1 min-w-0"
           >
-            <div className="space-y-2 text-white/65 text-base font-light leading-relaxed">
+            <div className="space-y-2 text-white/65 text-sm sm:text-base font-light leading-relaxed">
               <p>Online · WhatsApp community · Recording available</p>
               <p>Ritual of Creativity · Wisdom Keepers</p>
               <p>Book Club · Sacred Circles</p>
@@ -313,7 +313,7 @@ export default function CreatorsClubPage() {
           </motion.div>
 
           {/* square video */}
-          <motion.div {...fadeUp(0.05)} className="w-[300px] h-[300px] rounded-2xl overflow-hidden shrink-0 self-center">
+          <motion.div {...fadeUp(0.05)} className="w-full sm:w-[280px] aspect-square sm:h-auto rounded-2xl overflow-hidden shrink-0 self-center">
             <video src="/images/creators/IMG_2253.MOV" autoPlay muted loop playsInline className="w-full h-full object-cover" />
           </motion.div>
         </div>

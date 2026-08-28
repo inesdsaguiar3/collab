@@ -6,9 +6,19 @@ interface RetreatSectionProps {
   className?: string;
   id?: string;
   compact?: boolean;
+  tight?: boolean;
+  tightest?: boolean;
 }
 
-export function RetreatSection({ children, background = "white", className = "", id, compact = false }: RetreatSectionProps) {
+export function RetreatSection({
+  children,
+  background = "white",
+  className = "",
+  id,
+  compact = false,
+  tight = false,
+  tightest = false,
+}: RetreatSectionProps) {
   const sectionStyle: Record<string, React.CSSProperties> = {
     white:  {},
     gray:   {
@@ -23,8 +33,16 @@ export function RetreatSection({ children, background = "white", className = "",
     },
   };
 
+  const paddingClass = tightest
+    ? "pt-8 pb-2 md:pt-10 md:pb-3"
+    : tight
+      ? "py-5 md:py-6"
+      : compact
+        ? "py-10 md:py-12"
+        : "py-24 md:py-32";
+
   return (
-    <section id={id} className={compact ? "py-10 md:py-12" : "py-24 md:py-32"} style={sectionStyle[background]}>
+    <section id={id} className={paddingClass} style={sectionStyle[background]}>
       <div className={`mx-auto px-8 lg:px-12 max-w-4xl ${className}`}>
         {children}
       </div>

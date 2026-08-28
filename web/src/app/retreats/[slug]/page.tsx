@@ -14,9 +14,41 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const retreat = getRetreatBySlug(slug);
   if (!retreat) return { title: "Retreat Not Found" };
+  const fm = retreat.frontmatter;
+  const url = `https://www.collab.living/retreats/${slug}`;
+  const keywordList = fm.keywords?.length
+    ? fm.keywords
+    : [
+        "breathwork retreat portugal",
+        "somatic healing retreat portugal",
+        "yoga and meditation retreat portugal",
+      ];
+  const seoTitle = fm.seoTitle ?? fm.title;
+  const description = fm.metaDescription;
+  const ogTitle = fm.ogTitle ?? seoTitle;
+  const ogDescription = fm.ogDescription ?? description;
+  const twitterTitle = fm.twitterTitle ?? ogTitle;
+  const twitterDescription = fm.twitterDescription ?? ogDescription;
   return {
-    title: `${retreat.frontmatter.title} | Co-llab`,
-    description: retreat.frontmatter.metaDescription,
+    title: seoTitle,
+    description,
+    keywords: keywordList,
+    alternates: { canonical: `/retreats/${slug}` },
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      url,
+      type: fm.ogType ?? "article",
+      images: fm.mainImageUrl
+        ? [{ url: fm.mainImageUrl }]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: twitterTitle,
+      description: twitterDescription,
+      images: fm.mainImageUrl ? [fm.mainImageUrl] : undefined,
+    },
   };
 }
 

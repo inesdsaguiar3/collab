@@ -70,6 +70,50 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Mobile only — shift mesh toward lavender/indigo without touching desktop */
+@media (max-width: 767px) {
+  :root {
+    --color-bg-mobile: #9a628f;
+  }
+
+  html,
+  body {
+    background: var(--color-bg-mobile);
+  }
+
+  #animated-bg {
+    width: 100vw;
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
+  #animated-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(127, 90, 161, 0.38) 0%,
+      rgba(127, 90, 161, 0.44) 40%,
+      rgba(94, 74, 158, 0.42) 70%,
+      rgba(73, 73, 163, 0.46) 100%
+    );
+  }
+
+  /* Sticky bars / mobile menus — match the purple mesh, not coral */
+  .mobile-bar-surface {
+    background: linear-gradient(
+      180deg,
+      rgba(127, 90, 161, 0.72) 0%,
+      rgba(94, 74, 158, 0.78) 50%,
+      rgba(73, 73, 163, 0.82) 100%
+    );
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
 /* Glassmorphism */
 .glass {
   background: rgba(255, 255, 255, 0.14);

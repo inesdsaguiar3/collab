@@ -15,6 +15,7 @@ import { RetreatHighlight } from "./RetreatHighlight";
 import { RetreatFullPhoto } from "./RetreatFullPhoto";
 import { RetreatPhotoMosaic, MosaicImage } from "./RetreatPhotoMosaic";
 import { RetreatFood, FoodImage } from "./RetreatFood";
+import { RetreatAmenities } from "./RetreatAmenities";
 
 // Colour tokens
 const C_HEADING  = "#2E2440";
@@ -55,6 +56,7 @@ export const mdxComponents: MDXComponents = {
   MosaicImage,
   RetreatFood,
   FoodImage,
+  RetreatAmenities,
 
   // Prose elements
   p: (props) => (

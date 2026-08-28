@@ -1,8 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const IMAGES = [
   "/images/img_9998.jpg",
@@ -20,34 +18,6 @@ const IMAGES = [
 ];
 
 export function GallerySection() {
-  const [lightbox, setLightbox] = useState<number | null>(null);
-
-  const prev = useCallback(
-    () => setLightbox((i) => (i === null ? null : (i - 1 + IMAGES.length) % IMAGES.length)),
-    []
-  );
-  const next = useCallback(
-    () => setLightbox((i) => (i === null ? null : (i + 1) % IMAGES.length)),
-    []
-  );
-
-  useEffect(() => {
-    if (lightbox === null) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightbox(null);
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [lightbox, prev, next]);
-
-  // Lock body scroll when lightbox open
-  useEffect(() => {
-    document.body.style.overflow = lightbox !== null ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [lightbox]);
-
   return (
     <section className="py-28 px-6">
       <div className="max-w-7xl mx-auto space-y-12">
@@ -68,99 +38,22 @@ export function GallerySection() {
         {/* Uniform grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {IMAGES.map((src, idx) => (
-            <motion.button
+            <div
               key={src}
-              className="relative aspect-square overflow-hidden rounded-2xl group focus:outline-none"
-              initial={{ opacity: 0, scale: 0.75 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                delay: idx * 0.06,
-                duration: 0.5,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => setLightbox(idx)}
+              className="relative aspect-square overflow-hidden rounded-2xl"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={src}
                 alt={`Co-llab moment ${idx + 1}`}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                priority={idx < 4}
+                className="w-full h-full object-cover"
               />
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full border-2 border-white/80 flex items-center justify-center">
-                  <span className="text-white text-xl leading-none">+</span>
-                </div>
-              </div>
-            </motion.button>
+            </div>
           ))}
         </div>
       </div>
-
-      {/* ── Lightbox ── */}
-      <AnimatePresence>
-        {lightbox !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
-            onClick={() => setLightbox(null)}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={lightbox}
-                initial={{ opacity: 0, scale: 0.88 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex items-center justify-center max-w-4xl w-full max-h-[88vh]"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={IMAGES[lightbox]}
-                  alt={`Co-llab moment ${lightbox + 1}`}
-                  className="max-h-[88vh] max-w-full w-auto object-contain rounded-2xl"
-                />
-
-                {/* Counter pill */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-white/60 text-xs tabular-nums">
-                  {lightbox + 1} / {IMAGES.length}
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Prev */}
-            <button
-              onClick={(e) => { e.stopPropagation(); prev(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white hover:bg-white/25 transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            {/* Next */}
-            <button
-              onClick={(e) => { e.stopPropagation(); next(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white hover:bg-white/25 transition-colors"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-
-            {/* Close */}
-            <button
-              onClick={() => setLightbox(null)}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 flex items-center justify-center text-white hover:bg-white/25 transition-colors"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

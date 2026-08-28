@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import Image from "next/image";
 import { getStripeLinkForOffer, useRetreatBooking } from "./RetreatBookingContext";
 
@@ -19,80 +19,163 @@ interface PricingOptionProps {
 
 const WARM_FILTER = "sepia(0.22) saturate(1.45) brightness(1.04) hue-rotate(-10deg) contrast(1.04)";
 
-export function PricingOption({ type, price, currency = "EUR", details, imageUrl, imageZoom = 1, earlyBirdDiscount, stripeLink }: PricingOptionProps) {
+function retreatSlugFromPath(): string | undefined {
+  if (typeof window === "undefined") return undefined;
+  const m = window.location.pathname.match(/^\/retreats\/([^/]+)/);
+  return m?.[1];
+}
+
+export function PricingOption({
+  type,
+  price,
+  currency = "EUR",
+  details,
+  imageUrl,
+  imageZoom = 1,
+  earlyBirdDiscount,
+  stripeLink,
+  accentColor = "#7F5AA1",
+}: PricingOptionProps) {
   const booking = useRetreatBooking();
   const resolvedStripeLink = stripeLink || (booking ? getStripeLinkForOffer(booking.offers, type) : undefined);
-  const slug = booking?.slug;
+  const slug = booking?.slug ?? retreatSlugFromPath();
+
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   const symbol = currency === "EUR" ? "€" : "$";
   const numericPrice = typeof price === "string" ? parseFloat(price) : price;
   const numericEB = typeof earlyBirdDiscount === "string" ? parseFloat(earlyBirdDiscount) : earlyBirdDiscount;
   const displayPrice = numericEB ? (numericPrice || 0) - (numericEB || 0) : numericPrice;
 
+  async function handleReserve() {
+    if (resolvedStripeLink) {
+      window.location.href = resolvedStripeLink;
+      return;
+    }
+    if (!slug) {
+      window.alert("Could not open checkout. Refresh the page or try again.");
+      return;
+    }
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, offerName: type }),
+      });
+      const data = (await res.json()) as {
+        paymentLinkUrl?: string;
+        url?: string;
+        error?: string;
+        details?: string;
+      };
+      if (!res.ok) {
+        window.alert(
+          [data.error, data.details].filter(Boolean).join(" ") || "Payment could not start. Check Stripe keys in .env.local.",
+        );
+        return;
+      }
+      const payUrl = data.paymentLinkUrl || data.url;
+      if (payUrl) {
+        window.location.href = payUrl;
+        return;
+      }
+      window.alert("No payment link returned. Is STRIPE_SECRET_KEY set?");
+    } catch {
+      window.alert("Network error. Please try again.");
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }
+
   return (
-    <div className="group flex flex-col overflow-hidden transition-all duration-300 hover:shadow-md min-h-[500px]"
-      style={{ background: "rgba(255,255,255,0.6)", border: "1px solid rgba(127,90,161,0.15)", backdropFilter: "blur(8px)" }}>
-      {imageUrl && (
-        <div style={{ height: "230px", overflow: "hidden", flexShrink: 0, position: "relative" }}>
+    <div
+      className="group flex h-full w-full min-h-0 flex-col overflow-hidden transition-all duration-300 hover:shadow-md"
+      style={{
+        background: "rgba(255,255,255,0.6)",
+        border: "1px solid rgba(127,90,161,0.15)",
+        backdropFilter: "blur(8px)",
+      }}
+    >
+      {imageUrl ? (
+        <div className="relative h-[200px] w-full shrink-0 overflow-hidden">
           <Image
             src={imageUrl}
             alt={type}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            style={{ objectFit: "cover", filter: WARM_FILTER, transform: `scale(${imageZoom})` }}
+            className="object-cover"
+            style={{ filter: WARM_FILTER, transform: `scale(${imageZoom})` }}
           />
         </div>
+      ) : (
+        <div
+          className="h-[200px] w-full shrink-0"
+          style={{ background: "linear-gradient(135deg, rgba(127,90,161,0.12), rgba(235,128,100,0.08))" }}
+          aria-hidden
+        />
       )}
-      <div className="flex-1 p-5 flex flex-col gap-2">
-        <h3 className="font-semibold text-sm tracking-wide" style={{ color: "#4A3558" }}>{type}</h3>
-        {details && <p className="text-sm leading-[1.75] font-light flex-1" style={{ color: "#7A6A8A" }}>{details}</p>}
-        <div className="mt-auto pt-4" style={{ borderTop: "1px solid rgba(127,90,161,0.12)" }}>
+      <div className="flex min-h-0 flex-1 flex-col p-5">
+        <h3 className="shrink-0 font-semibold text-sm tracking-wide" style={{ color: "#4A3558" }}>
+          {type}
+        </h3>
+        {details && (
+          <p
+            className="mt-2 min-h-[7rem] flex-1 text-sm leading-[1.75] font-light line-clamp-5"
+            style={{ color: "#7A6A8A" }}
+          >
+            {details}
+          </p>
+        )}
+        {/* Casa do Sol style: list price struck through, early-bird large, label under — right-aligned */}
+        <div className="mt-auto shrink-0 pt-4 text-right" style={{ borderTop: "1px solid rgba(127,90,161,0.12)" }}>
           {numericEB ? (
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-light" style={{ color: "#EB8064" }}>{symbol}{displayPrice}</span>
-              <span className="text-sm line-through" style={{ color: "#C0B0C8" }}>{symbol}{numericPrice}</span>
-              <span className="text-xs font-medium uppercase tracking-wider" style={{ color: "#4949A3" }}>Early Bird</span>
+            <div className="space-y-1">
+              <p className="text-lg leading-tight line-through" style={{ color: "#9CA3AF" }}>
+                {symbol}
+                {numericPrice}
+              </p>
+              <p className="text-4xl font-bold tracking-tight" style={{ color: accentColor }}>
+                {symbol}
+                {displayPrice}
+              </p>
+              <p
+                className="text-xs font-semibold uppercase tracking-wider pt-0.5 opacity-90"
+                style={{ color: accentColor }}
+              >
+                Early Bird
+              </p>
             </div>
           ) : (
-            <span className="text-3xl font-light" style={{ color: "#EB8064" }}>{symbol}{numericPrice}</span>
+            <p className="text-4xl font-bold tracking-tight" style={{ color: accentColor }}>
+              {symbol}
+              {numericPrice}
+            </p>
           )}
         </div>
-        <div className="mt-3 flex items-center justify-between gap-3">
-          <a
-            href={resolvedStripeLink || "#"}
-            target={resolvedStripeLink ? "_blank" : undefined}
-            rel={resolvedStripeLink ? "noopener noreferrer" : undefined}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide uppercase transition-all hover:opacity-90"
-            style={{ background: "rgba(235,128,100,0.12)", color: "#EB8064", border: "1px solid rgba(235,128,100,0.25)" }}
-            onClick={async (e) => {
-              if (resolvedStripeLink) return;
-              e.preventDefault();
-              if (!slug) {
-                window.location.href = "/contact";
-                return;
-              }
-              try {
-                const res = await fetch("/api/stripe/checkout", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ slug, offerName: type }),
-                });
-                const data = (await res.json()) as { url?: string; error?: string };
-                if (data?.url) {
-                  window.location.href = data.url;
-                } else {
-                  window.location.href = "/contact";
-                }
-              } catch {
-                window.location.href = "/contact";
-              }
-            }}
-          >
-            Reserve
-          </a>
-          <span className="text-xs font-light" style={{ color: "#9A85B0" }}>
-            Secure checkout
-          </span>
+
+        <div className="mt-4 shrink-0">
+          {resolvedStripeLink ? (
+            <a
+              href={resolvedStripeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center py-3 px-6 rounded-lg text-sm font-bold text-white shadow-md hover:shadow-lg transition-all duration-300 hover:opacity-95"
+              style={{ backgroundColor: accentColor }}
+            >
+              Reserve
+            </a>
+          ) : (
+            <button
+              type="button"
+              disabled={checkoutLoading}
+              onClick={() => void handleReserve()}
+              className="w-full text-center py-3 px-6 rounded-lg text-sm font-bold text-white shadow-md hover:shadow-lg transition-all duration-300 hover:opacity-95 disabled:opacity-60"
+              style={{ backgroundColor: accentColor }}
+            >
+              {checkoutLoading ? "Opening checkout…" : "Reserve"}
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -108,30 +191,27 @@ interface RetreatPricingProps {
 
 export function RetreatPricing({ title = "Accommodation Options", children }: RetreatPricingProps) {
   const items = React.Children.toArray(children);
-  const firstRow = items.slice(0, 3);
-  const secondRow = items.slice(3);
 
   return (
-    <div className="space-y-12">
-      <div className="text-center space-y-2">
-        <p className="text-xs uppercase tracking-[0.4em]" style={{ color: "#4949A3" }}>Investment</p>
-        <h2 className="text-2xl md:text-3xl font-light tracking-tight" style={{ color: "#4A3558" }}>{title}</h2>
-        <div className="mx-auto mt-3 h-px max-w-xs rounded-full"
-          style={{ background: "linear-gradient(to right, transparent, rgba(73,73,163,0.3), transparent)" }} />
+    <div id="investment" className="scroll-mt-28 space-y-12">
+      <div className="space-y-2 text-center">
+        <p className="text-xs uppercase tracking-[0.4em]" style={{ color: "#4949A3" }}>
+          Investment
+        </p>
+        <h2 className="text-center text-3xl font-bold tracking-tight md:text-4xl" style={{ color: "#4A3558" }}>
+          {title}
+        </h2>
+        <div
+          className="mx-auto mt-3 h-px max-w-xs rounded-full"
+          style={{ background: "linear-gradient(to right, transparent, rgba(73,73,163,0.3), transparent)" }}
+        />
       </div>
-      <div className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {firstRow}
-        </div>
-        {secondRow.length > 0 && (
-          <div className="flex justify-center gap-4 flex-wrap">
-            {secondRow.map((child, i) => (
-              <div key={i} className="w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)]">
-                {child}
-              </div>
-            ))}
+      <div className="grid grid-cols-1 items-stretch gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((child, i) => (
+          <div key={i} className="flex h-full min-h-[560px] w-full">
+            {child}
           </div>
-        )}
+        ))}
       </div>
       <div className="text-center pt-2">
         <a

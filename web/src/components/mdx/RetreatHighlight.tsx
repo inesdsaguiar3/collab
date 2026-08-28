@@ -1,4 +1,3 @@
-"use client";
 import { ReactNode } from "react";
 
 interface RetreatHighlightProps {
@@ -7,27 +6,21 @@ interface RetreatHighlightProps {
   background?: "light" | "accent" | "gradient";
 }
 
-export function RetreatHighlight({ children }: RetreatHighlightProps) {
+export function RetreatHighlight({
+  children,
+  accentColor = "#AE5F8F",
+}: RetreatHighlightProps) {
   return (
-    <div className="max-w-xl mx-auto text-center py-2">
-      {/* Small decorative mark */}
-      <div className="flex items-center justify-center gap-3 mb-5">
-        <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to right, transparent, #EB806450)" }} />
-        <div className="w-1 h-1 rounded-full" style={{ background: "#AE5F8F" }} />
-        <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to left, transparent, #7F5AA150)" }} />
-      </div>
-
-      <div style={{ color: "#4A3F5C" }}
-        className="text-sm md:text-base font-light leading-[1.85] tracking-wide">
+    <aside
+      style={{ borderLeft: `2px solid ${accentColor}` }}
+      className="pl-5 md:pl-6"
+    >
+      <div
+        style={{ color: "#4A3F5C" }}
+        className="text-base md:text-[1.1rem] font-light leading-[1.7] tracking-[0.01em] [&_p]:m-0"
+      >
         {children}
       </div>
-
-      {/* Bottom mark */}
-      <div className="flex items-center justify-center gap-3 mt-5">
-        <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to right, transparent, #7F5AA150)" }} />
-        <div className="w-1 h-1 rounded-full" style={{ background: "#AE5F8F" }} />
-        <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to left, transparent, #EB806450)" }} />
-      </div>
-    </div>
+    </aside>
   );
 }

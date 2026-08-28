@@ -7,6 +7,7 @@ const RETREATS_PATH = path.join(process.cwd(), "mdx-pages/retreats");
 export interface RetreatFrontmatter {
   id: string;
   title: string;
+  seoTitle?: string;
   subtitle?: string;
   startDate: string;
   endDate: string;
@@ -18,12 +19,19 @@ export interface RetreatFrontmatter {
   accentColor?: string;
   metaDescription?: string;
   keywords?: string[];
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: "website" | "article";
+  twitterTitle?: string;
+  twitterDescription?: string;
   offers?: Array<{
     name?: string;
     price: number;
     priceCurrency: string;
     availability?: string;
     stripeLink?: string;
+    /** Subtracted from `price` on the server when creating the Stripe Payment Link (same idea as Casa do Sol early bird). */
+    earlyBirdDiscount?: number;
   }>;
   performers?: string[];
   maxAttendeeCapacity?: number;

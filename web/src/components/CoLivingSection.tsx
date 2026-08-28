@@ -11,7 +11,6 @@ const spaces = [
     country: "Portugal",
     tagline: "Medieval magic & slow living",
     image: "https://images.unsplash.com/photo-1696535201883-c1d76a6b22cc?w=800&q=80",
-    price: "€950/mo",
   },
   {
     id: 2,
@@ -19,7 +18,6 @@ const spaces = [
     country: "Portugal",
     tagline: "Surf, soul & Atlantic air",
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
-    price: "€1,100/mo",
   },
   {
     id: 3,
@@ -27,7 +25,6 @@ const spaces = [
     country: "Thailand",
     tagline: "Jungle, yoga & island energy",
     image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
-    price: "$750/mo",
   },
   {
     id: 4,
@@ -35,7 +32,6 @@ const spaces = [
     country: "NL",
     tagline: "Canals, bikes & creative flow",
     image: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800&q=80",
-    price: "€1,600/mo",
   },
 ];
 
@@ -61,14 +57,14 @@ export function CoLivingSection() {
             className="space-y-8"
           >
             <div className="space-y-4">
-              <span className="text-xs uppercase tracking-[0.3em] text-[#D16678] font-semibold">Co-Living</span>
+              <span className="text-xs uppercase tracking-[0.3em] text-[#D16678] font-semibold">Coliving</span>
               <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white leading-none">
                 Your home <br />
                 <span className="gradient-text">reimagined</span>
               </h2>
             </div>
             <p className="text-white/50 text-lg leading-relaxed max-w-md">
-              Wake up in a space designed for deep work and deeper connection. Our co-living locations are portals to a life less ordinary.
+              Wake up in a space designed for deep work and deeper connection. Stay with us once and you&apos;re part of the community — welcomed back with community price each time.
             </p>
 
             <ul className="space-y-4">
@@ -83,7 +79,7 @@ export function CoLivingSection() {
             </ul>
 
             <Link
-              href="/co-living"
+              href="/coliving"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-[#EB8064] to-[#D96B50] hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-[#EB8064]/20"
             >
               Discover Spaces <ArrowRight className="w-4 h-4" />
@@ -104,9 +100,6 @@ export function CoLivingSection() {
                 <div className="relative h-40 overflow-hidden">
                   <img src={space.image} alt={space.city} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-3 right-3 text-xs font-bold text-white/80 glass px-2.5 py-1 rounded-full border border-white/10">
-                    {space.price}
-                  </div>
                 </div>
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-white">{space.city}, <span className="text-white/50 font-normal">{space.country}</span></h3>

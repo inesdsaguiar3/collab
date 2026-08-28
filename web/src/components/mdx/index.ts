@@ -13,6 +13,7 @@ export { RetreatHighlight } from "./RetreatHighlight";
 export { RetreatFullPhoto } from "./RetreatFullPhoto";
 export { RetreatPhotoMosaic, MosaicImage } from "./RetreatPhotoMosaic";
 export { RetreatFood, FoodImage } from "./RetreatFood";
+export { RetreatAmenities } from "./RetreatAmenities";
 export { RetreatBookingProvider } from "./RetreatBookingContext";
 export { mdxComponents } from "./mdxComponents";
 export { MDXContent } from "./MDXContent";

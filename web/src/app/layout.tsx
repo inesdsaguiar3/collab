@@ -1,11 +1,49 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
+const BRAND_POSITIONING =
+  "Coliving & Retreats in Portugal for community, creativity, and conscious living - Breathwork, Somatics, Art, Yoga & Meditation";
+
 export const metadata: Metadata = {
-  title: "Co-llab | Connect, Create, Collaborate",
-  description: "A space for co-creation, community, and conscious living.",
+  metadataBase: new URL("https://www.collab.living"),
+  title: {
+    default: "Coliving & Retreats in Portugal | Co-llab",
+    template: "%s | Co-llab",
+  },
+  description: BRAND_POSITIONING,
+  keywords: [
+    "coliving portugal",
+    "retreats portugal",
+    "community retreats portugal",
+    "creative community portugal",
+    "conscious living portugal",
+    "breathwork retreat portugal",
+    "somatics retreat portugal",
+    "art retreat portugal",
+    "yoga retreat portugal",
+    "meditation retreat portugal",
+    "wellness retreats portugal",
+    "obidos retreat",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Coliving & Retreats in Portugal | Co-llab",
+    description: BRAND_POSITIONING,
+    url: "https://www.collab.living",
+    siteName: "Co-llab",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Coliving & Retreats in Portugal | Co-llab",
+    description: BRAND_POSITIONING,
+  },
 };
 
 export default function RootLayout({
@@ -13,6 +51,20 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-NZBHW69DSL"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NZBHW69DSL');
+          `}
+        </Script>
+      </head>
       <body className="min-h-screen antialiased">
 
         {/* ── Animated mesh gradient background ── */}
@@ -53,7 +105,7 @@ export default function RootLayout({
         </div>
 
         <Navbar />
-        <main className="pt-20">
+        <main className="pt-20 min-w-0 overflow-x-hidden">
           {children}
         </main>
         <Footer />

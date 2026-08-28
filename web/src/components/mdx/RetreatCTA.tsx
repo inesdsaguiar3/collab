@@ -16,7 +16,7 @@ interface RetreatCTAProps {
 
 export function RetreatCTA({
   primaryText = "Reserve your place",
-  primaryHref = "#join-now",
+  primaryHref = "#investment",
   secondaryText, secondaryHref, calendarLink,
   marginTop = "none",
 }: RetreatCTAProps) {

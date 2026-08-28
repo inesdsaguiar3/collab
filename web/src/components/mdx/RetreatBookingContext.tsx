@@ -8,6 +8,7 @@ export type RetreatOffer = {
   priceCurrency: string;
   availability?: string;
   stripeLink?: string;
+  earlyBirdDiscount?: number;
 };
 
 type BookingContextValue = {

@@ -30,7 +30,7 @@ export function RetreatDisclaimer({
       {facilitatorNote && (
         <p className="text-sm font-light mt-3" style={{ color: "#4A3F5C" }}>
           Want to join as a facilitator?{" "}
-          <a href="#contact-us" className="underline hover:opacity-80" style={{ color: accentColor }}>
+          <a href="/contact" className="underline hover:opacity-80" style={{ color: accentColor }}>
             Contact us
           </a>{" "}
           for details.

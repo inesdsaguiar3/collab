@@ -80,13 +80,11 @@ export function OverviewIncludes({ children }: OverviewIncludesProps) {
     <div style={{
       display: "inline-flex",
       alignItems: "center",
-      gap: "8px",
       background: "rgba(255,255,255,0.2)",
       border: "1px solid rgba(255,255,255,0.38)",
       borderRadius: "100px",
       padding: "9px 16px",
     }}>
-      <FiCheck size={11} style={{ color: "#7F5AA1", flexShrink: 0 }} />
       <span style={{ color: "#2E2440", fontWeight: 300, fontSize: "0.87rem" }}>
         {children}
       </span>
