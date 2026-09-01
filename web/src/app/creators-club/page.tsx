@@ -346,17 +346,23 @@ export default function CreatorsClubPage() {
       </section>
 
       {/* 7 ── PRACTICAL ───────────────────────────────────────── */}
-      <section className="max-w-2xl mx-auto mt-28">
-        <motion.div
-          {...fadeUp()}
-          className="glass rounded-2xl border border-white/10 px-7 py-6 flex flex-col justify-center gap-2 w-fit"
-        >
-          <div className="space-y-2 text-white/65 text-base font-light leading-relaxed">
-            <p>Every other Thursday · Online · 1 hour</p>
-            <p>Recording available · WhatsApp community</p>
-            <p className="text-white/80">Donation-based — give what feels right.</p>
-          </div>
-        </motion.div>
+      <section className="max-w-2xl mx-auto mt-28 w-full min-w-0">
+        <div className="flex flex-col sm:flex-row items-stretch gap-4 w-full">
+          <motion.div
+            {...fadeUp()}
+            className="glass rounded-2xl border border-white/10 px-5 py-6 sm:px-7 flex flex-col justify-center gap-2 flex-1 min-w-0"
+          >
+            <div className="space-y-2 text-white/65 text-sm sm:text-base font-light leading-relaxed">
+              <p>Every other Thursday · Online · 1 hour</p>
+              <p>Recording available · WhatsApp community</p>
+              <p className="text-white/80">Donation-based — give what feels right.</p>
+            </div>
+          </motion.div>
+
+          <motion.div {...fadeUp(0.05)} className="w-full sm:w-[280px] aspect-square sm:h-auto rounded-2xl overflow-hidden shrink-0 self-center">
+            <video src="/images/creators/IMG_2253.MOV" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+          </motion.div>
+        </div>
       </section>
 
       {/* 8 ── CLOSING ────────────────────────────────────────── */}
