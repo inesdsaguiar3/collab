@@ -65,10 +65,6 @@ function GatheringsCarousel() {
 
   return (
     <section className="max-w-3xl mx-auto mt-28 space-y-10">
-      <motion.p {...fadeUp()} className="text-center text-white/45 text-sm md:text-base font-light leading-relaxed">
-        Every other Thursday · Online · 1 hour
-      </motion.p>
-
       <div className="relative min-h-[280px]">
         <AnimatePresence mode="wait">
           <motion.div
@@ -82,7 +78,7 @@ function GatheringsCarousel() {
             {slide.type === "steps" ? (
               <>
                 <div className="text-center space-y-2">
-                  <p className="text-[#EB8064] text-xs uppercase tracking-[0.3em] font-semibold">
+                  <p className="text-[#EB8064] text-2xl md:text-3xl font-black tracking-tight">
                     Ritual of Creativity
                   </p>
                   <p className="text-white/35 text-sm font-light">with Inês</p>
@@ -105,7 +101,7 @@ function GatheringsCarousel() {
             ) : (
               <div className="space-y-8 text-center max-w-xl mx-auto">
                 <div className="space-y-2">
-                  <p className="text-[#EB8064] text-xs uppercase tracking-[0.3em] font-semibold">
+                  <p className="text-[#EB8064] text-2xl md:text-3xl font-black tracking-tight">
                     Contemplation Club
                   </p>
                   <p className="text-white/35 text-sm font-light">with Tim</p>
@@ -168,12 +164,15 @@ function GatheringsCarousel() {
 }
 
 const INES_BIO =
-  "Inês is a Breathwork, Yoga and Meditation facilitator and the founder of Co-llab. Her passion is creating spaces for expansion by nurturing awareness, connection and a more intentional rhythm of living and working together. Her background in Somatic & Rebirthing Breathwork, Yoga, Meditation, Energy healing, and Trauma-Aware spaceholding informs how she holds the field — with sensitivity, aliveness and trust.";
+  "Inês is a Breathwork, Somatics and Meditation facilitator and the founder of Co-llab. Her passion is creating spaces for expansion by nurturing awareness, connection and a more intentional rhythm of living and working together. Her background in Somatic & Rebirthing Breathwork, Meditation, Energy healing, and Trauma-Aware spaceholding informs how she holds the field — with sensitivity, aliveness and trust.";
+
+const LAURA_BIO =
+  "Laura is a regenerative facilitator working with inner-led change and authentic relating. Through her Table concept, she guides cooking as a practice of presence, collaboration and creativity — listening to ingredients, to our senses, and to one another.";
 
 const CO_CREATORS = [
   {
     name: "Inês",
-    subtitle: "Breathwork, Yoga & Creativity",
+    subtitle: "Breathwork, Somatics & Creativity",
     image: "/images/retreats/profile.JPG",
     bio: INES_BIO,
   },
@@ -183,6 +182,25 @@ const CO_CREATORS = [
     image: "/images/Tim.jpg",
     bio:
       "Tim guides people home to themselves — reconnecting with their center and embodying their gifts in daily life, work, and relationships. His work weaves Gene Keys, somatic self-regulation, re-parenting, and inner parts work. He values pausing: when we slow down and listen, we meet inner wisdom and move with more ease, trust, and creative power.",
+  },
+  {
+    name: "Laura",
+    subtitle: "Full Moon Circle · the Table",
+    image: "/images/laura.jpeg",
+    bio: LAURA_BIO,
+  },
+] as const;
+
+const EXTRA_GATHERINGS = [
+  {
+    title: "Full Moon Women's Circle",
+    when: "Monthly · Mondays 7pm",
+    body: "Ritual of letting go, passing thresholds, and connecting to a natural rhythm — cycles, wild sides, and tender parts. Archetypes, release, and movement that awaken aliveness and the Feminine.",
+  },
+  {
+    title: "Creativity Book Club",
+    when: "Monthly · Thursdays 5.30pm",
+    body: "Reading together to deepen creativity, inspiration, and contemplation — shared pages, shared reflections.",
   },
 ] as const;
 
@@ -325,26 +343,6 @@ export default function CreatorsClubPage() {
         </motion.div>
       </section>
 
-      <GatheringsCarousel />
-
-      {/* 6 ── CO-CREATORS ─────────────────────────────────────── */}
-      <section className="max-w-4xl mx-auto mt-28 space-y-10">
-        <motion.div {...fadeUp()} className="max-w-2xl space-y-4">
-          <h2 className="text-xs uppercase tracking-[0.3em] text-[#EB8064] font-semibold">
-            Co-creators
-          </h2>
-          <div className="h-[2px] w-full rounded-full" style={{ background: "linear-gradient(to right, #EB8064, #7F5AA1, #D16678)" }} />
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-10 md:gap-14 max-w-2xl mx-auto">
-          {CO_CREATORS.map((creator, i) => (
-            <motion.div key={creator.name} {...fadeUp(i * 0.08)}>
-              <CoCreatorFlipCard {...creator} />
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
       {/* 7 ── PRACTICAL ───────────────────────────────────────── */}
       <section className="max-w-2xl mx-auto mt-28 w-full min-w-0">
         <div className="flex flex-col sm:flex-row items-stretch gap-4 w-full">
@@ -362,6 +360,46 @@ export default function CreatorsClubPage() {
           <motion.div {...fadeUp(0.05)} className="w-full sm:w-[280px] aspect-square sm:h-auto rounded-2xl overflow-hidden shrink-0 self-center">
             <video src="/images/creators/IMG_2253.MOV" autoPlay muted loop playsInline className="w-full h-full object-cover" />
           </motion.div>
+        </div>
+      </section>
+
+      <GatheringsCarousel />
+
+      {/* ── ALSO IN THE LAB (extras) ──────────────────────────── */}
+      <section className="max-w-4xl mx-auto mt-16 space-y-5">
+        <motion.p {...fadeUp()} className="text-center text-white/30 text-[11px] uppercase tracking-[0.28em] font-semibold">
+          Also in the Lab
+        </motion.p>
+        <div className="grid md:grid-cols-2 gap-5">
+          {EXTRA_GATHERINGS.map((extra, i) => (
+            <motion.div
+              key={extra.title}
+              {...fadeUp(i * 0.06)}
+              className="glass rounded-2xl border border-white/10 px-6 py-6 md:px-7 md:py-7 space-y-3"
+            >
+              <p className="text-white text-lg font-semibold tracking-tight leading-snug">{extra.title}</p>
+              <p className="text-white/45 text-sm font-light">{extra.when}</p>
+              <p className="text-white/60 text-sm md:text-base font-light leading-relaxed">{extra.body}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* 6 ── CO-CREATORS ─────────────────────────────────────── */}
+      <section className="max-w-5xl mx-auto mt-28 space-y-10">
+        <motion.div {...fadeUp()} className="max-w-2xl space-y-4">
+          <h2 className="text-xs uppercase tracking-[0.3em] text-[#EB8064] font-semibold">
+            Co-creators
+          </h2>
+          <div className="h-[2px] w-full rounded-full" style={{ background: "linear-gradient(to right, #EB8064, #7F5AA1, #D16678)" }} />
+        </motion.div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-8 max-w-4xl mx-auto">
+          {CO_CREATORS.map((creator, i) => (
+            <motion.div key={creator.name} {...fadeUp(i * 0.08)}>
+              <CoCreatorFlipCard {...creator} />
+            </motion.div>
+          ))}
         </div>
       </section>
 

@@ -22,12 +22,53 @@ export function JoinForm() {
 
   if (joined) {
     return (
-      <div className="space-y-4 text-center py-4">
-        <p className="text-white font-semibold text-xl">You&apos;re in.</p>
-        <p className="text-white/55 text-base font-light leading-relaxed">
-          Thank you for joining the Creators&apos; Lab. You&apos;ll receive an invitation to the
-          group shortly.
-        </p>
+      <div className="space-y-6 text-center py-4">
+        <div className="space-y-3">
+          <p className="text-white font-semibold text-xl">You&apos;re in!</p>
+          <p className="text-white/55 text-base font-light leading-relaxed">
+            Couldn&apos;t be more excited to create together — join us on WhatsApp to know all our
+            upcoming events {"<3"}
+          </p>
+          <a
+            href="https://chat.whatsapp.com/D3a69NcesG35d4kD59brVO?mode=gi_t"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center mt-1 px-4 py-1.5 rounded-full text-xs font-semibold text-white border border-white/25 bg-white/10 hover:bg-white/15 hover:border-white/40 transition-colors"
+          >
+            Join WhatsApp group
+          </a>
+        </div>
+
+        <div className="space-y-5 text-left max-w-sm mx-auto">
+          <div className="space-y-1.5">
+            <p className="text-white/80 text-sm font-medium leading-snug">
+              Weekly Ritual of Creativity / Contemplation Club
+            </p>
+            <p className="text-white/50 text-sm font-light">Thursdays 6.30pm</p>
+            <a
+              href="https://us06web.zoom.us/j/89454871584"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#EB8064] text-sm font-light underline underline-offset-4 hover:text-white transition-colors break-all"
+            >
+              https://us06web.zoom.us/j/89454871584
+            </a>
+          </div>
+
+          <div className="space-y-1.5">
+            <p className="text-white/80 text-sm font-medium leading-snug">
+              Monthly Full Moon Women&apos;s Circle
+            </p>
+            <p className="text-white/50 text-sm font-light">Mondays 7pm</p>
+          </div>
+
+          <div className="space-y-1.5">
+            <p className="text-white/80 text-sm font-medium leading-snug">
+              Monthly Creativity Book Club
+            </p>
+            <p className="text-white/50 text-sm font-light">Thursdays 5.30pm</p>
+          </div>
+        </div>
       </div>
     );
   }
