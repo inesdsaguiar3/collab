@@ -169,6 +169,9 @@ const INES_BIO =
 const LAURA_BIO =
   "Laura is a regenerative facilitator working with inner-led change and authentic relating. Through her Table concept, she guides cooking as a practice of presence, collaboration and creativity — listening to ingredients, to our senses, and to one another.";
 
+const GALA_BIO =
+  "Gala is a singer-songwriter and poet from northern Spain who writes vulnerable, dark, funny poems about her weird parents and her place in the world.";
+
 const CO_CREATORS = [
   {
     name: "Inês",
@@ -188,6 +191,12 @@ const CO_CREATORS = [
     subtitle: "Full Moon Circle · the Table",
     image: "/images/laura.jpeg",
     bio: LAURA_BIO,
+  },
+  {
+    name: "Gala",
+    subtitle: "Singer-songwriter & Poet",
+    image: "/images/gala-portrait.jpg",
+    bio: GALA_BIO,
   },
 ] as const;
 
@@ -209,11 +218,13 @@ function CoCreatorFlipCard({
   subtitle,
   image,
   bio,
+  imagePosition = "object-center",
 }: {
   name: string;
   subtitle: string;
   image: string;
   bio: string;
+  imagePosition?: string;
 }) {
   const [flipped, setFlipped] = useState(false);
 
@@ -232,7 +243,11 @@ function CoCreatorFlipCard({
           } md:group-hover:[transform:rotateY(180deg)]`}
         >
           <div className="absolute inset-0 overflow-hidden rounded-2xl border border-white/10 [backface-visibility:hidden] shadow-lg">
-            <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover" />
+            <img
+              src={image}
+              alt=""
+              className={`absolute inset-0 h-full w-full object-cover ${imagePosition}`}
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             <p className="absolute bottom-4 inset-x-0 text-center text-[10px] uppercase tracking-[0.2em] text-white/35 font-semibold md:hidden">
               Tap for bio
@@ -394,7 +409,7 @@ export default function CreatorsClubPage() {
           <div className="h-[2px] w-full rounded-full" style={{ background: "linear-gradient(to right, #EB8064, #7F5AA1, #D16678)" }} />
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-8 max-w-4xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 max-w-5xl mx-auto">
           {CO_CREATORS.map((creator, i) => (
             <motion.div key={creator.name} {...fadeUp(i * 0.08)}>
               <CoCreatorFlipCard {...creator} />
