@@ -86,6 +86,7 @@ export default async function RetreatPage({ params }: { params: Promise<{ slug: 
         title={frontmatter.title}
         subtitle={frontmatter.subtitle}
         date={formatRetreatDateRange(frontmatter.startDate, frontmatter.endDate)}
+        location={frontmatter.location}
         imageUrl={frontmatter.mainImageUrl}
         videoUrl={frontmatter.heroVideoUrl}
         hideImage={frontmatter.hideHeaderImage}

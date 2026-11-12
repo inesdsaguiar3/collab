@@ -4,6 +4,7 @@ interface RetreatHeroProps {
   title: string;
   subtitle?: string;
   date: string;
+  location?: string;
   imageUrl?: string;
   videoUrl?: string;
   accentColor?: string;
@@ -11,7 +12,7 @@ interface RetreatHeroProps {
 }
 
 export function RetreatHero({
-  title, subtitle, date, imageUrl, videoUrl,
+  title, subtitle, date, location, imageUrl, videoUrl,
   accentColor = "#7F5AA1", hideImage = false,
 }: RetreatHeroProps) {
 
@@ -22,7 +23,9 @@ export function RetreatHero({
           className="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
         <div className="relative z-20 text-left px-10 pb-16 w-full max-w-4xl mx-auto">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/50 mb-4">{date}</p>
+          <p className="text-xs uppercase tracking-[0.35em] text-white/50 mb-4">
+            {date}{location ? ` · ${location}` : ""}
+          </p>
           <h1 className="text-5xl md:text-7xl font-light text-white leading-[1.05] tracking-tight">{title}</h1>
           {subtitle && <p className="mt-4 text-lg font-light text-white/60 max-w-md leading-relaxed">{subtitle}</p>}
         </div>
@@ -36,7 +39,7 @@ export function RetreatHero({
       <section className="pt-40 pb-24 md:pt-48 md:pb-32 px-8 text-center">
         <div className="max-w-3xl mx-auto space-y-6">
           <p className="text-xs uppercase tracking-[0.4em] text-white/45">
-            {date} · Óbidos, Portugal
+            {date}{location ? ` · ${location}` : ""}
           </p>
           <h1 style={{ lineHeight: "1.05" }}
             className="text-5xl md:text-6xl lg:text-[5.5rem] font-light text-white tracking-tight">
@@ -62,7 +65,9 @@ export function RetreatHero({
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
       <div className="relative z-20 px-10 pb-16 max-w-3xl">
-        <p className="text-xs uppercase tracking-[0.35em] text-white/50 mb-4">{date}</p>
+        <p className="text-xs uppercase tracking-[0.35em] text-white/50 mb-4">
+          {date}{location ? ` · ${location}` : ""}
+        </p>
         <h1 className="text-5xl md:text-6xl font-light text-white leading-[1.05] tracking-tight">{title}</h1>
         {subtitle && <p className="mt-4 text-lg font-light text-white/60 max-w-md leading-relaxed">{subtitle}</p>}
       </div>

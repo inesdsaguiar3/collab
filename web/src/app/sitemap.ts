@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/community`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/contact`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/work-with-us`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE_URL}/embodied-vision-lab`, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE_URL}/rates`, changeFrequency: "weekly", priority: 0.85 },
   ];
 

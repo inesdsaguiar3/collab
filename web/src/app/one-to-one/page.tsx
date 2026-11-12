@@ -245,7 +245,7 @@ export default function OneToOnePage() {
       <section className="max-w-5xl mx-auto pt-10 grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div className="space-y-8">
         <motion.div initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
-          <span className="text-xs uppercase tracking-[0.3em] text-[#EB8064] font-semibold">1:1 Psychosomatic Therapy</span>
+          <span className="text-xs uppercase tracking-[0.3em] text-[#EB8064] font-semibold">Your lab</span>
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

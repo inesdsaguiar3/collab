@@ -42,6 +42,11 @@ const nextConfig: NextConfig = {
         destination: "/rates",
         permanent: true,
       },
+      {
+        source: "/retreats/embodied-vision-lab",
+        destination: "/embodied-vision-lab",
+        permanent: true,
+      },
     ];
   },
 };

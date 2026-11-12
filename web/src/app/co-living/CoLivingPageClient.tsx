@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { CalendarDays, MapPin, Sparkles, CircleCheck } from "lucide-react";
-import { UPCOMING_LABS, formatLabDateRange } from "@/lib/labs";
+import { Sparkles, CircleCheck } from "lucide-react";
+import { UPCOMING_IMMERSIONS } from "@/lib/labs";
 import { COLIVING_FAQS } from "@/lib/colivingFaqs";
 import { ROOM_RATES, formatEuro } from "@/lib/pricing";
 
@@ -114,6 +114,48 @@ function SeeRatesButton({
   );
 }
 
+function UpcomingDatesSection() {
+  return (
+    <section id="upcoming-coliving" className="max-w-5xl mx-auto scroll-mt-28">
+      <div className="grid md:grid-cols-[1fr_1.1fr] gap-10 md:gap-16 items-end">
+        <div className="space-y-4">
+          <p className="text-xs uppercase tracking-[0.28em] text-[#EB8064] font-semibold">
+            Upcoming
+          </p>
+          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-[1.08]">
+            Next colivings
+          </h2>
+        </div>
+
+        <div className="space-y-0">
+          {UPCOMING_IMMERSIONS.map((item, i) => {
+            const contactHref = `/contact?topic=coliving&message=${encodeURIComponent(
+              `Count me in for the ${item.when} coliving — keep me first in line when booking opens.\n\n`,
+            )}`;
+
+            return (
+              <div
+                key={item.id}
+                className={`flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-6 py-5 ${
+                  i < UPCOMING_IMMERSIONS.length - 1 ? "border-b border-white/10" : ""
+                }`}
+              >
+                <p className="text-white text-2xl md:text-3xl font-black tracking-tight">{item.when}</p>
+                <Link
+                  href={contactHref}
+                  className="text-[#EB8064] text-sm font-medium underline underline-offset-4 decoration-[#EB8064]/35 hover:text-white hover:decoration-white/50 transition-colors shrink-0"
+                >
+                  Save your spot →
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function CoLivingPageClient({
   testimonials,
 }: {
@@ -134,7 +176,7 @@ export default function CoLivingPageClient({
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/70" />
 
         <div className="relative z-10 flex min-h-[100dvh] w-full max-w-4xl flex-col items-center justify-center px-5 sm:px-6 pb-28 pt-28 text-center md:pt-32">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#EB8064] font-semibold">Coliving</span>
+          <span className="text-xs uppercase tracking-[0.3em] text-[#EB8064] font-semibold">The living lab</span>
           <h1 className="mt-5 text-[2.5rem] leading-[1.05] sm:text-5xl md:text-7xl font-black tracking-tight text-white max-w-4xl">
             Coliving in Óbidos.<br />
             <span className="gradient-text">Live in community.</span>
@@ -152,96 +194,7 @@ export default function CoLivingPageClient({
       </section>
 
       <div className="space-y-16 md:space-y-20 px-5 sm:px-6 pt-12 md:pt-16">
-      <section id="upcoming-lab" className="max-w-5xl mx-auto scroll-mt-28 space-y-6">
-        <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.28em] text-[#EB8064] font-semibold">Upcoming labs</p>
-          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">
-            Themed residency inside the house
-          </h2>
-        </div>
-
-        <div className="space-y-6">
-          {UPCOMING_LABS.map((lab) => {
-            const bookHref = `/rates?checkIn=${lab.startDate}&stay=monthly&from=lab`;
-            const primaryHref = lab.href.startsWith("/retreats/") ? lab.href : bookHref;
-
-            return (
-              <div
-                key={lab.id}
-                className="rounded-3xl border border-white/10 bg-white/[0.03] overflow-hidden"
-              >
-                <div className="grid md:grid-cols-[1.1fr_1fr]">
-                  <div className="relative min-h-[280px] md:min-h-full">
-                    <img
-                      src={lab.image}
-                      alt={lab.title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/30" />
-                  </div>
-
-                  <div className="p-5 sm:p-7 md:p-9 space-y-5">
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.2em] text-[#EB8064] font-semibold">
-                        Upcoming lab
-                      </p>
-                      <h3 className="text-2xl md:text-3xl font-black text-white leading-tight">
-                        {lab.title}
-                      </h3>
-                      <p className="text-white/55 text-sm">{lab.subtitle}</p>
-                    </div>
-
-                    <div className="space-y-2 text-sm">
-                      <p className="text-white/75 flex items-center gap-2">
-                        <CalendarDays className="w-4 h-4 text-[#D16678]" />
-                        {formatLabDateRange(lab.startDate, lab.endDate)}
-                      </p>
-                      <p className="text-white/65 flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-[#D16678]" />
-                        {lab.location}
-                      </p>
-                    </div>
-
-                    <p className="text-white/65 text-sm leading-relaxed">{lab.description}</p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {lab.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 rounded-full text-xs border border-white/15 bg-white/[0.04] text-white/60"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
-                      {lab.href.startsWith("/retreats/") ? (
-                        <>
-                          <Link
-                            href={primaryHref}
-                            className="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-white bg-gradient-to-r from-[#EB8064] to-[#D16678] shadow-lg shadow-[#EB8064]/20 hover:opacity-95 transition-opacity"
-                          >
-                            Explore the lab
-                          </Link>
-                          <SeeRatesButton
-                            variant="link"
-                            href={bookHref}
-                            label="See Rates & Book this stay"
-                            className="px-1 py-1"
-                          />
-                        </>
-                      ) : (
-                        <SeeRatesButton href={bookHref} label="See Rates & Book this stay" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <UpcomingDatesSection />
 
       <section className="max-w-5xl mx-auto py-10 sm:py-12 px-5 sm:px-8 md:px-12 rounded-3xl" style={{ background: "rgba(220, 210, 240, 0.2)" }}>
         <div className="max-w-3xl space-y-6">

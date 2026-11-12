@@ -9,7 +9,7 @@ const footerLinks = [
     title: "Explore",
     links: [
       { name: "About Us", href: "/about" },
-      { name: "Retreats & Labs", href: "/retreats" },
+      { name: "Immersions", href: "/retreats" },
       { name: "Coliving", href: "/coliving" },
       { name: "Rates & Booking", href: "/rates" },
       { name: "Work with Us", href: "/work-with-us" },

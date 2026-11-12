@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, Calendar, MapPin } from "lucide-react";
 import { formatRetreatDateRange, getAllRetreats } from "@/lib/mdx";
-import { UPCOMING_LABS, formatLabDateRange } from "@/lib/labs";
+import {
+  PAST_EXPERIENCES,
+  UPCOMING_LABS,
+  formatLabDateRange,
+  isUpcomingByEndDate,
+} from "@/lib/labs";
 
 type UpcomingCard = {
   key: string;
@@ -18,10 +23,19 @@ type UpcomingCard = {
 };
 
 export function RetreatsSection() {
-  const labIds = new Set(UPCOMING_LABS.map((lab) => lab.id));
+  const upcomingLabs = UPCOMING_LABS.filter((lab) =>
+    isUpcomingByEndDate(lab.endDate),
+  );
+  const excludedIds = new Set([
+    ...upcomingLabs.map((lab) => lab.id),
+    ...PAST_EXPERIENCES.map((item) => item.id),
+  ]);
 
   const retreatCards: UpcomingCard[] = getAllRetreats()
-    .filter(({ slug }) => !labIds.has(slug))
+    .filter(({ slug, frontmatter }) => {
+      if (excludedIds.has(slug) || excludedIds.has(frontmatter.id)) return false;
+      return isUpcomingByEndDate(frontmatter.endDate);
+    })
     .map(({ slug, frontmatter }) => {
       const fromPrice = frontmatter.offers?.length
         ? Math.min(...frontmatter.offers.map((offer) => Number(offer.price)))
@@ -44,7 +58,7 @@ export function RetreatsSection() {
       };
     });
 
-  const labCards: UpcomingCard[] = UPCOMING_LABS.map((lab) => ({
+  const labCards: UpcomingCard[] = upcomingLabs.map((lab) => ({
     key: lab.id,
     href: lab.href,
     title: lab.title,
@@ -67,10 +81,10 @@ export function RetreatsSection() {
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 max-w-2xl space-y-4">
           <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white leading-none">
-            Upcoming <span className="gradient-text">retreats</span>
+            Upcoming <span className="gradient-text">immersions</span>
           </h2>
           <p className="text-white/50 text-sm md:text-base leading-relaxed">
-            Immersive stays and focused lab chapters — built to deepen practice and connection.
+            Our field labs — days to feel, embody and connect, in person.
           </p>
         </div>
 
@@ -107,14 +121,17 @@ export function RetreatsSection() {
                   {card.title}
                 </h3>
                 {card.description && (
-                  <p className="text-white/50 text-sm leading-relaxed line-clamp-2">{card.description}</p>
+                  <p className="text-white/50 text-sm leading-relaxed line-clamp-2">
+                    {card.description}
+                  </p>
                 )}
                 <div className="flex items-center justify-between pt-1">
                   <span className="text-sm font-medium" style={{ color: card.accent }}>
                     {card.priceLabel ?? "Learn more"}
                   </span>
                   <span className="flex items-center gap-1.5 text-sm text-white/60 group-hover:text-white transition-colors">
-                    Explore <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    Explore{" "}
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                   </span>
                 </div>
               </div>
@@ -127,7 +144,7 @@ export function RetreatsSection() {
             href="/retreats"
             className="px-8 py-4 glass rounded-full text-white font-semibold border border-white/10 hover:border-[#EB8064]/40 hover:bg-white/5 transition-all duration-200 flex items-center gap-2"
           >
-            View all retreats &amp; labs <ArrowRight className="w-4 h-4" />
+            View all immersions <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

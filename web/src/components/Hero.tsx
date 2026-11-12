@@ -115,7 +115,7 @@ export function Hero() {
           transition={{ delay: 0.6, duration: 0.7 }}
           className="max-w-lg flex-shrink-0 text-base leading-relaxed font-light text-white/85 sm:text-lg md:text-xl"
         >
-          Curated retreats, coliving spaces, and a global community of conscious souls.
+          Immersions, coliving, 1:1, and a weekly ritual online.
           Come as you are. Leave transformed.
         </motion.p>
 
@@ -129,7 +129,7 @@ export function Hero() {
             href="/retreats"
             className="px-8 py-4 rounded-full font-semibold text-white bg-gradient-to-r from-[#EB8064] to-[#D16678] hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-[#EB8064]/25 text-base"
           >
-            Explore Retreats ✦
+            Explore immersions ✦
           </Link>
           <Link
             href="/coliving"

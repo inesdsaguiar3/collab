@@ -57,7 +57,7 @@ export function CoLivingSection() {
             className="space-y-8"
           >
             <div className="space-y-4">
-              <span className="text-xs uppercase tracking-[0.3em] text-[#D16678] font-semibold">Coliving</span>
+              <span className="text-xs uppercase tracking-[0.3em] text-[#D16678] font-semibold">The living lab</span>
               <h2 className="text-4xl md:text-6xl font-black tracking-tight text-white leading-none">
                 Your home <br />
                 <span className="gradient-text">reimagined</span>

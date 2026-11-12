@@ -11,15 +11,21 @@ const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
  */
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as { email?: string };
+    const body = (await req.json()) as {
+      email?: string;
+      immersion?: string;
+      source?: string;
+    };
     const email = body?.email?.trim();
+    const immersion = body?.immersion?.trim() || "";
+    const source = body?.source?.trim() || "newsletter";
 
     if (!email || !emailOk(email)) {
       return NextResponse.json({ error: "Please enter a valid email." }, { status: 400 });
     }
 
     const submittedAt = new Date().toISOString();
-    console.log("[newsletter-signup]", { email, submittedAt });
+    console.log("[newsletter-signup]", { email, immersion, source, submittedAt });
 
     const apiKey = process.env.RESEND_API_KEY;
     const audienceId = process.env.RESEND_AUDIENCE_ID?.trim();
@@ -57,13 +63,18 @@ export async function POST(req: Request) {
 
     if (fromEmail) {
       try {
+        const isImmersionInterest = source === "coliving-immersion" || Boolean(immersion);
         const { error: sendError } = await resend.emails.send({
           from: `Co-llab <${fromEmail}>`,
           to: fromEmail,
-          subject: "New Co-llab newsletter signup",
+          subject: isImmersionInterest
+            ? `New coliving interest${immersion ? `: ${immersion}` : ""}`
+            : "New Co-llab newsletter signup",
           html: `
-            <h1>New newsletter signup</h1>
+            <h1>${isImmersionInterest ? "New coliving immersion interest" : "New newsletter signup"}</h1>
             <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+            ${immersion ? `<p><strong>Immersion:</strong> ${escapeHtml(immersion)}</p>` : ""}
+            <p><strong>Source:</strong> ${escapeHtml(source)}</p>
             <p><strong>Time (UTC):</strong> ${escapeHtml(submittedAt)}</p>
             ${audienceId ? `<p><em>Also added to Resend audience <code>${escapeHtml(audienceId)}</code>.</em></p>` : ""}
           `,
